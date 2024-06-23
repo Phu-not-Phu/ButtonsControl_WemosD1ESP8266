@@ -9,17 +9,17 @@
 #include <string.h>
 
 #ifndef APSSID
-// #define APSSID "PhuPhuong"  // existing Wifi network
-// #define APPSK "03052003"
-#define APSSID "HSU_Students"  // existing Wifi network
-#define APPSK "dhhs12cnvch"
+#define APSSID "PhuPhuong"  // existing Wifi network
+#define APPSK "03052003"
+// #define APSSID "HSU_Students"  // existing Wifi network
+// #define APPSK "dhhs12cnvch"
 #endif
 
 /* Set these to your desired credentials. */
 const char *ssid = APSSID;
 const char *password = APPSK;
-// const char *URL = "http://192.168.1.140:8010/inputButt/";
-const char *URL = "http://10.106.22.161:8010/inputButt/";
+const char *URL = "http://192.168.1.140:8010/inputButt/";
+// const char *URL = "http://10.106.22.161:8010/inputButt/";
 
 WiFiClient client;
 HTTPClient http;
@@ -34,10 +34,20 @@ int buttonUp = D6;
 int buttonDown = D5;
 int buttonRight = SCL / D1;
 
-int buttonLeftState = 0;
-int buttonUpState = 0;
-int buttonDownState = 0;
-int buttonRightState = 0;
+int buttonLeftState;
+int buttonUpState;
+int buttonDownState;
+int buttonRightState;
+
+int lastButtonLeftState = LOW;
+int lastButtonUpState = LOW;
+int lastButtonDownState = LOW;
+int lastButtonRightState = LOW;
+
+// the following variables are unsigned longs because the time, measured in
+// milliseconds, will quickly become a bigger number than can be stored in an int.
+unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
+unsigned long debounceDelay = 25;    // the debounce time; increase if the output flickers
 
 void setup() {
   Serial.begin(115200);
@@ -94,7 +104,7 @@ void postJsonData(String inputName) {
       http.addHeader("Content-Type", "application/json");
       int httpCode = http.POST(output);
       Serial.println(httpCode);
-      
+
       http.end();  //Close connection Serial.println();
       Serial.println("closing connection");
     }
@@ -102,39 +112,94 @@ void postJsonData(String inputName) {
 }
 
 void pressButtonLeft() {
-  buttonLeftState = digitalRead(buttonLeft);
+  // read the state of the switch into a local variable:
+  int reading = digitalRead(buttonLeft);
 
-  if (buttonLeftState == HIGH) {
-    Serial.println("Left");
-    postJsonData("left");
+  // check to see if you just pressed the button
+  // (i.e. the input went from LOW to HIGH), and you've waited long enough
+  // since the last press to ignore any noise:
+
+  // If the switch changed, due to noise or pressing:
+  if (reading != lastButtonLeftState) {
+    // reset the debouncing timer
+    lastDebounceTime = millis();
   }
+
+  if ((millis() - lastDebounceTime) > debounceDelay) {
+    // whatever the reading is at, it's been there for longer than the debounce
+    // delay, so take it as the actual current state:
+
+    // if the button state has changed:
+    if (reading != buttonLeftState) {
+      buttonLeftState = reading;
+
+      if (buttonLeftState == HIGH) {
+        Serial.println("Left");
+        // postJsonData("left");
+      }
+    }
+  }
+  lastButtonLeftState = reading;
 }
 
 void pressButtonUp() {
-  buttonUpState = digitalRead(buttonUp);
+  int reading = digitalRead(buttonUp);
 
-  if (buttonUpState == HIGH) {
-    Serial.println("Up");
-    postJsonData("up");
+  if (reading != lastButtonUpState) {
+    lastDebounceTime = millis();
   }
+
+  if ((millis() - lastDebounceTime) > debounceDelay) {
+    if (reading != buttonUpState) {
+      buttonUpState = reading;
+
+      if (buttonUpState == HIGH) {
+        Serial.println("Up");
+        // postJsonData("up");
+      }
+    }
+  }
+  lastButtonUpState = reading;
 }
 
 void pressButtonDown() {
-  buttonDownState = digitalRead(buttonDown);
+  int reading = digitalRead(buttonDown);
 
-  if (buttonDownState == HIGH) {
-    Serial.println("Down");
-    postJsonData("down");
+  if (reading != lastButtonDownState) {
+    lastDebounceTime = millis();
   }
+
+  if ((millis() - lastDebounceTime) > debounceDelay) {
+    if (reading != buttonDownState) {
+      buttonDownState = reading;
+
+      if (buttonDownState == HIGH) {
+        Serial.println("Down");
+        // postJsonData("down");
+      }
+    }
+  }
+  lastButtonDownState = reading;
 }
 
 void pressButtonRight() {
-  buttonRightState = digitalRead(buttonRight);
+  int reading = digitalRead(buttonRight);
 
-  if (buttonRightState == HIGH) {
-    Serial.println("Right");
-    postJsonData("right");
+  if (reading != lastButtonRightState) {
+    lastDebounceTime = millis();
   }
+
+  if ((millis() - lastDebounceTime) > debounceDelay) {
+    if (reading != buttonRightState) {
+      buttonRightState = reading;
+
+      if (buttonRightState == HIGH) {
+        Serial.println("Right");
+        // postJsonData("right");
+      }
+    }
+  }
+  lastButtonRightState = reading;
 }
 
 void loop() {
@@ -146,10 +211,10 @@ void loop() {
   //   startTime = millis();
   // }
 
-  // pressButtonLeft();
-  // pressButtonUp();
-  // pressButtonDown();
-  // pressButtonRight();
+  pressButtonLeft();
+  pressButtonUp();
+  pressButtonDown();
+  pressButtonRight();
 }
 
 void handleOnConnect() {
