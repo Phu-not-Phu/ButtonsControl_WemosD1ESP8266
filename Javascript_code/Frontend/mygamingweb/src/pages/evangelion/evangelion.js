@@ -1,46 +1,34 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { io } from "socket.io-client";
 
 function Evangelion() {
-  const [input, setInput] = useState([]);
+  var [input, setInput] = useState([]);
+
+  async function handleInput() {
+    try{
+      let response = await axios.get("http://localhost:8010/inputButt");
+      setInput(response.data);
+    }catch(error){
+      console.log("Error: " + error);
+    }
+  }
 
   useEffect(() => {
-    let isMounted = true;
-    const controller = new AbortController();
-
-    const getInput = async () => {
-      try {
-        const response = await axios.get("http://localhost:8010/inputButt", {
-          signal: controller.signal,
-        });
-
-        console.log(
-          "Get input response: ",
-          JSON.stringify(response.data.input)
-        );
-
-        if (isMounted) {
-          setInput(response.data);
-        }
-      } catch (error) {
-        console.log("Get input error: " + error);
-      }
-    };
-    getInput();
+    let timerID = setInterval(() => {
+      handleInput();
+    }, 2000);
 
     return () => {
-      isMounted = false;
-      isMounted && controller.abort();
-    };
-  }, []);
+      clearInterval(timerID);
+    }
+  }, [])
 
   return (
     <div>
       <h1>Evangelion</h1>
       <span>
         <h2>Input from backend:</h2>
-        {input?.length ? (
+        {/* {input?.length ? (
           <p>
             {input.map((item, index) => (
               <span key={index}>{item.input}</span>
@@ -48,7 +36,8 @@ function Evangelion() {
           </p>
         ) : (
           <p>No input</p>
-        )}
+        )} */}
+        <p>{input}</p>
       </span>
     </div>
   );

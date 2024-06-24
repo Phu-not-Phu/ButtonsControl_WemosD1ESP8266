@@ -11,24 +11,11 @@ CREATE TABLE inputButt
 INSERT INTO inputButt(input, atTime)
 VALUES	('right', CURTIME());
 
-SELECT * FROM inputButt
+UPDATE inputButt 
+SET input = "left", atTime = CURTIME()
+WHERE id = 1;
 
-DELIMITER //
-CREATE PROCEDURE orderInput ()
-BEGIN
-	DECLARE sumInput int;
-    SET sumInput = (SELECT COUNT(id) FROM inputButt);
-	
-    IF sumInput > 10 THEN 
-		DELETE FROM inputButt LIMIT 10;
-    END IF;
-    
-	SELECT *
-    FROM inputButt
-    ORDER BY id DESC
-    LIMIT 1;
-END;
+SELECT * FROM inputButt;
+SELECT input from inputButt;
 
-CALL orderInput;
-
-DROP PROCEDURE orderInput;
+DROP TABLE inputButt;
