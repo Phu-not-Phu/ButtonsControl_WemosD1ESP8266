@@ -5,15 +5,34 @@
   background-position: center;
   background-attachment: fixed;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#evangelion-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: auto;
+  padding: 20px;
+
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 h1 {
   color: white;
+  text-align: center;
 }
 
 span > h2 {
   color: white;
+  text-align: center;
 }
 span > p {
   color: white;
+  text-align: center;
 }

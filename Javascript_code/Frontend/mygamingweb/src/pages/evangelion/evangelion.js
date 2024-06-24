@@ -1,5 +1,6 @@
 import "./evangelion.css";
 import music from "./music/Neon Genesis Evangelion.mp3";
+import Eva_1 from "./sounds/Eva_1.mp3";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -16,9 +17,18 @@ function Evangelion() {
     }
   }
 
+  function playSound() {
+    var audio = new Audio(Eva_1);
+    audio.play();
+  }
+
   useEffect(() => {
     let timerID = setInterval(() => {
       handleInput();
+
+      // if (input == "right") {
+      //   playSound();
+      // }
     }, 2000);
 
     return () => {
@@ -28,14 +38,17 @@ function Evangelion() {
 
   return (
     <div className="background-image">
-      <h1>Evangelion</h1>
-      <span>
-        <h2>Input from backend:</h2>
-        <p>{input}</p>
-      </span>
-      <audio controls autoPlay>
-        <source src={music} type="audio/mpeg" />
-      </audio>
+      <div id="evangelion-container">
+        <h1>Evangelion</h1>
+        <span>
+          <h2>Input from backend:</h2>
+          <p>{input}</p>
+        </span>
+        <audio controls>
+          <source src={music} type="audio/mpeg" />
+        </audio>
+        <button onClick={playSound}>play</button>
+      </div>
     </div>
   );
 }
