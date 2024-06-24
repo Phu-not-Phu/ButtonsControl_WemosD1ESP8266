@@ -1,3 +1,5 @@
+import "./evangelion.css";
+
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -5,10 +7,10 @@ function Evangelion() {
   var [input, setInput] = useState([]);
 
   async function handleInput() {
-    try{
+    try {
       let response = await axios.get("http://localhost:8010/inputButt");
       setInput(response.data);
-    }catch(error){
+    } catch (error) {
       console.log("Error: " + error);
     }
   }
@@ -20,23 +22,14 @@ function Evangelion() {
 
     return () => {
       clearInterval(timerID);
-    }
-  }, [])
+    };
+  }, []);
 
   return (
-    <div>
+    <div className="background-image">
       <h1>Evangelion</h1>
       <span>
         <h2>Input from backend:</h2>
-        {/* {input?.length ? (
-          <p>
-            {input.map((item, index) => (
-              <span key={index}>{item.input}</span>
-            ))}
-          </p>
-        ) : (
-          <p>No input</p>
-        )} */}
         <p>{input}</p>
       </span>
     </div>
