@@ -29,10 +29,10 @@ MDNSResponder mdns;
 strDateTime dateTime;
 unsigned long startTime;
 
-int buttonLeft = D7;
-int buttonUp = D6;
-int buttonDown = D5;
-int buttonRight = SCL / D1;
+const int buttonLeft = D7;
+const int buttonUp = D6;
+const int buttonDown = D5;
+const int buttonRight = SCL / D1;
 
 int buttonLeftState;
 int buttonUpState;
@@ -47,7 +47,19 @@ int lastButtonRightState = LOW;
 // the following variables are unsigned longs because the time, measured in
 // milliseconds, will quickly become a bigger number than can be stored in an int.
 unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
-unsigned long debounceDelay = 35;    // the debounce time; increase if the output flickers
+unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
+
+unsigned long lastDebounceTimeLeft = lastDebounceTime;
+unsigned long debounceDelayLeft = debounceDelay; 
+
+unsigned long lastDebounceTimeUp = lastDebounceTime;
+unsigned long debounceDelayUp = debounceDelay; 
+
+unsigned long lastDebounceTimeDown = lastDebounceTime;
+unsigned long debounceDelayDown = debounceDelay; 
+
+unsigned long lastDebounceTimeRight = lastDebounceTime;
+unsigned long debounceDelayRight = debounceDelay; 
 
 void setup() {
   Serial.begin(115200);
@@ -113,25 +125,25 @@ void postJsonData(String inputName) {
 
 void pressButtonLeft() {
   // read the state of the switch into a local variable:
-  int reading = digitalRead(buttonLeft);
+  int readingLeft = digitalRead(buttonLeft);
 
   // check to see if you just pressed the button
   // (i.e. the input went from LOW to HIGH), and you've waited long enough
   // since the last press to ignore any noise:
 
   // If the switch changed, due to noise or pressing:
-  if (reading != lastButtonLeftState) {
+  if (readingLeft != lastButtonLeftState) {
     // reset the debouncing timer
-    lastDebounceTime = millis();
+    lastDebounceTimeLeft = millis();
   }
 
-  if ((millis() - lastDebounceTime) > debounceDelay) {
+  if ((millis() - lastDebounceTimeLeft) > debounceDelayLeft) {
     // whatever the reading is at, it's been there for longer than the debounce
     // delay, so take it as the actual current state:
 
     // if the button state has changed:
-    if (reading != buttonLeftState) {
-      buttonLeftState = reading;
+    if (readingLeft != buttonLeftState) {
+      buttonLeftState = readingLeft;
 
       if (buttonLeftState == HIGH) {
         Serial.println("Left");
@@ -139,19 +151,19 @@ void pressButtonLeft() {
       }
     }
   }
-  lastButtonLeftState = reading;
+  lastButtonLeftState = readingLeft;
 }
 
 void pressButtonUp() {
-  int reading = digitalRead(buttonUp);
+  int readingUp = digitalRead(buttonUp);
 
-  if (reading != lastButtonUpState) {
-    lastDebounceTime = millis();
+  if (readingUp != lastButtonUpState) {
+    lastDebounceTimeUp = millis();
   }
 
-  if ((millis() - lastDebounceTime) > debounceDelay) {
-    if (reading != buttonUpState) {
-      buttonUpState = reading;
+  if ((millis() - lastDebounceTimeUp) > debounceDelayUp) {
+    if (readingUp != buttonUpState) {
+      buttonUpState = readingUp;
 
       if (buttonUpState == HIGH) {
         Serial.println("Up");
@@ -159,19 +171,19 @@ void pressButtonUp() {
       }
     }
   }
-  lastButtonUpState = reading;
+  lastButtonUpState = readingUp;
 }
 
 void pressButtonDown() {
-  int reading = digitalRead(buttonDown);
+  int readingDown = digitalRead(buttonDown);
 
-  if (reading != lastButtonDownState) {
-    lastDebounceTime = millis();
+  if (readingDown != lastButtonDownState) {
+    lastDebounceTimeDown = millis();
   }
 
-  if ((millis() - lastDebounceTime) > debounceDelay) {
-    if (reading != buttonDownState) {
-      buttonDownState = reading;
+  if ((millis() - lastDebounceTimeDown) > debounceDelayDown) {
+    if (readingDown != buttonDownState) {
+      buttonDownState = readingDown;
 
       if (buttonDownState == HIGH) {
         Serial.println("Down");
@@ -179,19 +191,19 @@ void pressButtonDown() {
       }
     }
   }
-  lastButtonDownState = reading;
+  lastButtonDownState = readingDown;
 }
 
 void pressButtonRight() {
-  int reading = digitalRead(buttonRight);
+  int readingRight = digitalRead(buttonRight);
 
-  if (reading != lastButtonRightState) {
-    lastDebounceTime = millis();
+  if (readingRight != lastButtonRightState) {
+    lastDebounceTimeRight = millis();
   }
 
-  if ((millis() - lastDebounceTime) > debounceDelay) {
-    if (reading != buttonRightState) {
-      buttonRightState = reading;
+  if ((millis() - lastDebounceTimeRight) > debounceDelayRight) {
+    if (readingRight != buttonRightState) {
+      buttonRightState = readingRight;
 
       if (buttonRightState == HIGH) {
         Serial.println("Right");
@@ -199,7 +211,7 @@ void pressButtonRight() {
       }
     }
   }
-  lastButtonRightState = reading;
+  lastButtonRightState = readingRight;
 }
 
 void loop() {

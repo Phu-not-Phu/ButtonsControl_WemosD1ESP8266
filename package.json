@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "react-native-game-engine": "^1.2.0"
+    "react-native-game-engine": "^1.2.0",
+    "react-router-dom": "^6.23.1"
   }
 }
