@@ -23,10 +23,9 @@ module.exports = {
     },
 
     update: (req, res) => {
-        let data = req.body;
-        let input = req.params.input;
-        let sql = 'UPDATE ' + TABLE + ' SET ? WHERE input = ?';
-        DB.query(sql, [data, input], (err, response) => {
+        let input = req.body.input;
+        let sql = 'UPDATE ' + TABLE + ' SET input = ?, atTime = CURTIME() WHERE id = 1';
+        DB.query(sql, [input], (err, response) => {
             if (err) throw err;
             res.json({ message: 'Update success!' });
         })

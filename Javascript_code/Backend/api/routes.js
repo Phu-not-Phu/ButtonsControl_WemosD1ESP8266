@@ -5,10 +5,10 @@ module.exports = function (APP) {
   // todoList Routes
   APP.route("/inputButt")
     .get(inputsCtrl.get)
-    .post(inputsCtrl.store);
+    .post(inputsCtrl.update);
 
-  APP.route("/inputButt/:input")
-    .get(inputsCtrl.detail)
-    .put(inputsCtrl.update)
-    .delete(inputsCtrl.delete);
+  // APP.route("/inputButt/:input")
+  //   .get(inputsCtrl.detail)
+  //   .put(inputsCtrl.update)
+  //   .delete(inputsCtrl.delete);
 };

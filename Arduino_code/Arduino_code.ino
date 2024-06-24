@@ -47,7 +47,7 @@ int lastButtonRightState = LOW;
 // the following variables are unsigned longs because the time, measured in
 // milliseconds, will quickly become a bigger number than can be stored in an int.
 unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
-unsigned long debounceDelay = 25;    // the debounce time; increase if the output flickers
+unsigned long debounceDelay = 35;    // the debounce time; increase if the output flickers
 
 void setup() {
   Serial.begin(115200);
@@ -135,7 +135,7 @@ void pressButtonLeft() {
 
       if (buttonLeftState == HIGH) {
         Serial.println("Left");
-        // postJsonData("left");
+        postJsonData("left");
       }
     }
   }
@@ -155,7 +155,7 @@ void pressButtonUp() {
 
       if (buttonUpState == HIGH) {
         Serial.println("Up");
-        // postJsonData("up");
+        postJsonData("up");
       }
     }
   }
@@ -175,7 +175,7 @@ void pressButtonDown() {
 
       if (buttonDownState == HIGH) {
         Serial.println("Down");
-        // postJsonData("down");
+        postJsonData("down");
       }
     }
   }
@@ -195,7 +195,7 @@ void pressButtonRight() {
 
       if (buttonRightState == HIGH) {
         Serial.println("Right");
-        // postJsonData("right");
+        postJsonData("right");
       }
     }
   }

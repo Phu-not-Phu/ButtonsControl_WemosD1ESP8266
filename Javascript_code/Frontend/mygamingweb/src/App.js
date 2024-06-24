@@ -1,10 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <h1>My Gaming Web</h1>
+    <div classname="game-container">
+      <h1>Hello</h1>
     </div>
   );
 }
