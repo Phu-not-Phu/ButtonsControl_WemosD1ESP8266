@@ -5,25 +5,32 @@
   background-position: center;
   background-attachment: fixed;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 #evangelion-container {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  width: 50%;
-  height: auto;
+  align-items: center; */
+  width: 100%;
+  height: 100%;
   padding: 20px;
 
-  background-color: rgba(0, 0, 0, 0.5);
+  /* background-color: rgba(0, 0, 0, 0.5); */
 
   color: white;
   text-align: center;
+
+  display: grid;
+  grid-template-columns: 0.7fr 1.7fr 0.6fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0 0;
+  grid-template-areas:
+    "songs player background-image"
+    "songs player background-image"
+    "songs player background-image";
+  
+  padding: 20px;
 }
 
 h1 {
@@ -40,7 +47,76 @@ span > p {
   text-align: center;
 }
 
-#evangelion-container > h2{
+#evangelion-container > h2 {
   color: white;
   text-align: center;
+}
+
+.songs{
+  grid-area: songs;
+}
+
+.player{
+  grid-area: player;
+}
+
+.background{
+  grid-area: background-image;
+}
+
+#button-layout {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0 10px 0;
+
+  > button {
+    width: 100px;
+    height: 30px;
+  }
+}
+
+#nextlyric-button {
+  margin-left: 50px;
+}
+
+#prevlyric-button {
+  margin-right: 50px;
+}
+
+.background{
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.back-frem{
+  width: 6.5rem;
+  height: 18rem;
+  background: white;
+  border-radius: 23px;
+  position: fixed;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.back-frem .back-change{
+  width: 88px;
+  height: 88px;
+  background: wheat;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 23px;
+}
+
+.back-frem .back-change img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

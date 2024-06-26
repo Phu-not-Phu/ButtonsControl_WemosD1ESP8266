@@ -71,12 +71,12 @@ SELECT * FROM inputButt;
 SELECT * FROM Evangelion;
 
 UPDATE inputButt 
-SET input = "down", atTime = CURTIME()
+SET input = "", atTime = CURTIME()
 WHERE id = 1;
 
 DELIMITER |
 CREATE EVENT refreshInput
-ON SCHEDULE EVERY 1 SECOND
+ON SCHEDULE EVERY 5 MINUTE
 DO
 BEGIN
 	UPDATE inputButt 

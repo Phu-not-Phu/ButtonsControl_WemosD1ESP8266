@@ -1,6 +1,11 @@
 import "./evangelion.css";
 import music from "./music/Neon Genesis Evangelion.mp3";
 
+//Import background images
+import Pic_1 from "./assets/Pic_1.jpg";
+import Pic_3 from "./assets/Pic_3.jpg";
+import Pic_5 from "./assets/Pic_5.jpg";
+
 //Import sounds
 import Eva_1 from "./sounds/Eva_1.mp3";
 import Eva_2 from "./sounds/Eva_2.mp3";
@@ -125,7 +130,6 @@ function Evangelion() {
         handleInput();
       }, 500);
     }
-
     return () => {
       clearInterval(timerID);
     };
@@ -146,9 +150,7 @@ function Evangelion() {
           console.log(error);
         }
       };
-
       getLyrics();
-
       return () => {
         getLyricRef.current = true;
       };
@@ -167,12 +169,23 @@ function Evangelion() {
   const nextLyric = useCallback(() => {
     var audio = new Audio(sounds[lyricIndex]);
 
-    if (lyricIndex < lyrics.length - 1) {
-      setLyricIndex(lyricIndex + 1);
-      audio = new Audio(sounds[lyricIndex + 1]);
+    if (start) {
+      if (lyricIndex < lyrics.length - 1) {
+        setLyricIndex(lyricIndex + 1);
+        audio = new Audio(sounds[lyricIndex + 1]);
+        audio.play();
+      }
+    }
+  }, [lyricIndex, lyrics, sounds, start]);
+
+  const previousLyric = useCallback(() => {
+    if (lyricIndex > 1) {
+      var audio = new Audio(sounds[lyricIndex]);
+      setLyricIndex(lyricIndex - 1);
+      audio = new Audio(sounds[lyricIndex - 1]);
       audio.play();
     }
-  }, [lyricIndex, lyrics, sounds]);
+  }, [lyricIndex, sounds]);
 
   function resetLyric() {
     setLyricIndex(0);
@@ -189,42 +202,94 @@ function Evangelion() {
     }
   }, [input, lyricIndex, lyrics, nextLyric]);
 
+  //Function to change background images
+  function changeBackground1() {
+    // document.querySelector("background-image").style.background = "url(Pic_1)";
+    document.getElementsByClassName(
+      "background-image"
+    )[0].style.backgroundImage = `url(${Pic_1})`;
+  }
+
+  function changeBackground2() {
+    document.getElementsByClassName(
+      "background-image"
+    )[0].style.backgroundImage = `url(${Pic_3})`;
+  }
+
+  function changeBackground3() {
+    document.getElementsByClassName(
+      "background-image"
+    )[0].style.backgroundImage = `url(${Pic_5})`;
+  }
+
   return (
     <div className="background-image">
       <div id="evangelion-container">
-        <h1>Evangelion</h1>
-        <span>
-          <h2>Input from Wemos:</h2>
-          {input.length > 0 ? <p>{input}</p> : <p>Loading...</p>}
-        </span>
-        <audio controls>
-          <source src={music} type="audio/mpeg" />
-        </audio>
-        <button onClick={startLyric}>Start lyric</button>
-        <button onClick={nextLyric}>Next lyric</button>
-        <button onClick={resetLyric}>Reset lyric</button>
-        <div>
-          {start ? (
-            // <h2>Input from Wemos: </h2>
-            <div>
-              <h2>Input from lyric: </h2>
-              {lyrics.length > 0 ? (
-                <p>{lyrics[lyricIndex].direction}</p>
-              ) : (
-                <p>Loading...</p>
-              )}
-              <h2>Lyrics:</h2>
-              {lyrics.length > 0 ? (
-                <div>
-                  <p>{lyrics[lyricIndex].lyric}</p>
-                </div>
-              ) : (
-                <p>Loading...</p>
-              )}
+        <div className="songs"></div>
+        <div className="player">
+          <h1>Evangelion</h1>
+          <span>
+            <h2>Input from Wemos:</h2>
+            {input.length > 0 ? <p>{input}</p> : <p>Loading...</p>}
+          </span>
+
+          {/*Full song control*/}
+          <audio controls>
+            <source src={music} type="audio/mpeg" />
+          </audio>
+
+          {/*Lyric control*/}
+          <div id="button-layout">
+            <button onClick={startLyric} id="start-button">
+              Start
+            </button>
+            <button onClick={nextLyric} id="nextlyric-button">
+              Next
+            </button>
+            <button onClick={previousLyric} id="prevlyric-button">
+              Previous
+            </button>
+            <button onClick={resetLyric} id="reset-button">
+              Reset
+            </button>
+          </div>
+
+          {/*Lyric display*/}
+          <div>
+            {start ? (
+              <div>
+                <h2>Input from lyric: </h2>
+                {lyrics.length > 0 ? (
+                  <p>{lyrics[lyricIndex].direction}</p>
+                ) : (
+                  <p>Loading...</p>
+                )}
+                <h2>Lyrics:</h2>
+                {lyrics.length > 0 ? (
+                  <div>
+                    <p>{lyrics[lyricIndex].lyric}</p>
+                  </div>
+                ) : (
+                  <p>Loading...</p>
+                )}
+              </div>
+            ) : (
+              <h2>Press Start Button</h2>
+            )}
+          </div>
+        </div>
+        <div className="background">
+          <div className="back-frem">
+            <div className="back-change" onClick={changeBackground1}>
+              <img src={Pic_1} alt=""></img>
             </div>
-          ) : (
-            <h2>Press Start Button</h2>
-          )}
+            <div className="back-change" onClick={changeBackground2}>
+              <img src={Pic_3} alt=""></img>
+            </div>
+            <div className="back-change" onClick={changeBackground3}>
+              <img src={Pic_5} alt=""></img>
+            </div>
+          </div>
         </div>
       </div>
     </div>
