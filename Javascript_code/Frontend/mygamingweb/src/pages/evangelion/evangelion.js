@@ -52,7 +52,13 @@ import Eva_42 from "./sounds/Eva_42.mp3";
 import Eva_43 from "./sounds/Eva_43.mp3";
 
 //Import react hooks
-import { useEffect, useState, useRef, useCallback, useMemo } from "react";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  useMemo,
+} from "react";
 import axios from "axios";
 
 function Evangelion() {
@@ -227,7 +233,14 @@ function Evangelion() {
       <div id="evangelion-container">
         <div className="songs"></div>
         <div className="player">
-          <h1>Evangelion</h1>
+
+          {/*Title song*/}
+          <div className="text-wrapper">
+            <h3>A Cruel Angel's Thesis - Yoko Takahashi</h3>
+            <h3>A Cruel Angel's Thesis - Yoko Takahashi</h3>
+            <h3>A Cruel Angel's Thesis - Yoko Takahashi</h3>
+          </div>
+
           <span>
             <h2>Input from Wemos:</h2>
             {input.length > 0 ? <p>{input}</p> : <p>Loading...</p>}

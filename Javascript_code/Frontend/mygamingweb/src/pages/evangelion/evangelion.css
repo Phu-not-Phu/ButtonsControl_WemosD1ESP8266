@@ -29,7 +29,7 @@
     "songs player background-image"
     "songs player background-image"
     "songs player background-image";
-  
+
   padding: 20px;
 }
 
@@ -52,15 +52,15 @@ span > p {
   text-align: center;
 }
 
-.songs{
+.songs {
   grid-area: songs;
 }
 
-.player{
+.player {
   grid-area: player;
 }
 
-.background{
+.background {
   grid-area: background-image;
 }
 
@@ -86,13 +86,13 @@ span > p {
   margin-right: 50px;
 }
 
-.background{
+.background {
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
 }
 
-.back-frem{
+.back-frem {
   width: 6.5rem;
   height: 18rem;
   background: white;
@@ -106,7 +106,7 @@ span > p {
   gap: 5px;
 }
 
-.back-frem .back-change{
+.back-frem .back-change {
   width: 88px;
   height: 88px;
   background: wheat;
@@ -115,8 +115,89 @@ span > p {
   border-radius: 23px;
 }
 
-.back-frem .back-change img{
+.back-frem .back-change img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.player {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .slider {
+  width: 65%;
+  border: 1px solid red;
+  height: var(--height);
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 10% 90%, transparent);
+
+  white-space: nowrap;
+}
+
+.slider:hover .list .title {
+  animation-play-state: paused;
+}
+
+.slider .list {
+  display: flex;
+  width: 100%;
+  min-width: calc(var(--width) * var(--quantity))!important;
+  position: relative;
+}
+
+.slider .list .title {
+  width: var(--width);
+  height: var(--height);
+  position: absolute;
+  left: 100%;
+  animation: autoRun 5s linear infinite;
+  animation-delay: calc((5s / var(--quantity)) * (var(--position) - 1));
+}
+
+.slider .list .title h3 {
+  display: inline;
+  width: 100%;
+  padding-right: 10px;
+}
+
+@keyframes autoRun {
+  from {
+    left: 100%;
+  }
+  to {
+    left: calc(var(--width) * -1);
+  }
+} */
+
+.text-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  background-color: black;
+  overflow: hidden;
+  width: 500px;
+  mask-image: linear-gradient(to right, transparent, #000 10% 90%, transparent);
+}
+
+.text-wrapper:hover h3 {
+  animation-play-state: paused;
+}
+
+.text-wrapper h3 {
+  font-size: 25px;
+  white-space: nowrap;
+  padding: 0.6rem;
+  animation: autoRun 6000ms linear infinite;
+}
+
+@keyframes autoRun {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
