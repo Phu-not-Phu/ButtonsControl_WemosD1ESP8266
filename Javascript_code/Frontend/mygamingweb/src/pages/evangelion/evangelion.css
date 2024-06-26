@@ -1,5 +1,5 @@
 .background-image {
-  background-image: url("./assets/Pic_3.jpg");
+  background-image: url("./assets/Pic_1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -21,6 +21,9 @@
   padding: 20px;
 
   background-color: rgba(0, 0, 0, 0.5);
+
+  color: white;
+  text-align: center;
 }
 
 h1 {

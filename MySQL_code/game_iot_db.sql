@@ -19,6 +19,7 @@ INSERT INTO inputButt(input, atTime)
 VALUES	('right', CURTIME());
 
 INSERT INTO Evangelion(direction, lyric) VALUES 
+	('down', "Press to begin! "),
 	('up', 'Zankoku na tenshi no you ni '),
 	('right', 'Shounen yo shinwa ni '),
     ('down', 'nareeeee '),
@@ -73,4 +74,14 @@ UPDATE inputButt
 SET input = "down", atTime = CURTIME()
 WHERE id = 1;
 
+DELIMITER |
+CREATE EVENT refreshInput
+ON SCHEDULE EVERY 1 SECOND
+DO
+BEGIN
+	UPDATE inputButt 
+    SET input = "", atTime = CURTIME()
+    WHERE id = 1;
+END |
 
+DROP EVENT refreshInput;
