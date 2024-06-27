@@ -1,11 +1,9 @@
 .background-image {
-  background-image: url("./assets/Pic_1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
   height: 100vh;
-
   background-color: black;
 }
 
@@ -325,6 +323,26 @@
     font-size: 30px;
   }
 }
+
+#circle-dot{
+  border-radius: 50%;
+  background-color: #ffffff;
+  width: 100px;
+  height: 100px;
+
+  margin-bottom: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  > p{
+    font-size: 35px;
+    font-weight: 500;
+    margin: 0;
+    color: #000;
+  }
+}
 /*==============================*/
 
 /*Lyric word display*/
@@ -382,7 +400,7 @@
 
   color: rgb(255, 255, 255);
 
-  width: 450px;
+  width: 550px;
   height: 60px;
 
   background-color: rgba(0, 0, 0, 0.75);
@@ -408,7 +426,7 @@
   padding: 10px;
   color: rgb(0, 0, 0);
 
-  width: 250px;
+  width: 350px;
   height: 25px;
 
   background-color: rgba(255, 255, 255, 0.75);

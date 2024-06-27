@@ -1,56 +1,52 @@
-import "./evangelion.css";
-import music from "./music/Neon Genesis Evangelion.mp3";
+// import "../evangelion/evangelion.css";
+import music from ".//music/JoJo's Bizarre Adventure - Opening 2.mp3";
 
 //Import background images
-import Pic_1 from "./assets/Pic_1.jpg";
-import Pic_3 from "./assets/Pic_3.jpg";
-import Pic_5 from "./assets/Pic_5.jpg";
-import logo from "./assets/evangelion-logo.png";
+import Pic_1 from "./assets/jojop2_1.jpg";
+import Pic_3 from "./assets/jojop2_2.jpg";
+import Pic_5 from "./assets/jojop2_3.jpg";
+import logo from "./assets/logo.png";
 
 //Import sounds
-import Eva_1 from "./sounds/Eva_1.mp3";
-import Eva_2 from "./sounds/Eva_2.mp3";
-import Eva_3 from "./sounds/Eva_3.mp3";
-import Eva_4 from "./sounds/Eva_4.mp3";
-import Eva_5 from "./sounds/Eva_5.mp3";
-import Eva_6 from "./sounds/Eva_6.mp3";
-import Eva_7 from "./sounds/Eva_7.mp3";
-import Eva_8 from "./sounds/Eva_8.mp3";
-import Eva_9 from "./sounds/Eva_9.mp3";
-import Eva_10 from "./sounds/Eva_10.mp3";
-import Eva_11 from "./sounds/Eva_11.mp3";
-import Eva_12 from "./sounds/Eva_12.mp3";
-import Eva_13 from "./sounds/Eva_13.mp3";
-import Eva_14 from "./sounds/Eva_14.mp3";
-import Eva_15 from "./sounds/Eva_15.mp3";
-import Eva_16 from "./sounds/Eva_16.mp3";
-import Eva_17 from "./sounds/Eva_17.mp3";
-import Eva_18 from "./sounds/Eva_18.mp3";
-import Eva_19 from "./sounds/Eva_19.mp3";
-import Eva_20 from "./sounds/Eva_20.mp3";
-import Eva_21 from "./sounds/Eva_21.mp3";
-import Eva_22 from "./sounds/Eva_22.mp3";
-import Eva_23 from "./sounds/Eva_23.mp3";
-import Eva_24 from "./sounds/Eva_24.mp3";
-import Eva_25 from "./sounds/Eva_25.mp3";
-import Eva_26 from "./sounds/Eva_26.mp3";
-import Eva_27 from "./sounds/Eva_27.mp3";
-import Eva_28 from "./sounds/Eva_28.mp3";
-import Eva_29 from "./sounds/Eva_29.mp3";
-import Eva_30 from "./sounds/Eva_30.mp3";
-import Eva_31 from "./sounds/Eva_31.mp3";
-import Eva_32 from "./sounds/Eva_32.mp3";
-import Eva_33 from "./sounds/Eva_33.mp3";
-import Eva_34 from "./sounds/Eva_34.mp3";
-import Eva_35 from "./sounds/Eva_35.mp3";
-import Eva_36 from "./sounds/Eva_36.mp3";
-import Eva_37 from "./sounds/Eva_37.mp3";
-import Eva_38 from "./sounds/Eva_38.mp3";
-import Eva_39 from "./sounds/Eva_39.mp3";
-import Eva_40 from "./sounds/Eva_40.mp3";
-import Eva_41 from "./sounds/Eva_41.mp3";
-import Eva_42 from "./sounds/Eva_42.mp3";
-import Eva_43 from "./sounds/Eva_43.mp3";
+import Eva_1 from "./sounds/jo_1.mp3";
+import Eva_2 from "./sounds/jo_2.mp3";
+import Eva_3 from "./sounds/jo_3.mp3";
+import Eva_4 from "./sounds/jo_4.mp3";
+import Eva_5 from "./sounds/jo_5.mp3";
+import Eva_6 from "./sounds/jo_6.mp3";
+import Eva_7 from "./sounds/jo_7.mp3";
+import Eva_8 from "./sounds/jo_8.mp3";
+import Eva_9 from "./sounds/jo_9.mp3";
+import Eva_10 from "./sounds/jo_10.mp3";
+import Eva_11 from "./sounds/jo_11.mp3";
+import Eva_12 from "./sounds/jo_12.mp3";
+import Eva_13 from "./sounds/jo_13.mp3";
+import Eva_14 from "./sounds/jo_14.mp3";
+import Eva_15 from "./sounds/jo_15.mp3";
+import Eva_16 from "./sounds/jo_16.mp3";
+import Eva_17 from "./sounds/jo_17.mp3";
+import Eva_18 from "./sounds/jo_18.mp3";
+import Eva_19 from "./sounds/jo_19.mp3";
+import Eva_20 from "./sounds/jo_20.mp3";
+import Eva_21 from "./sounds/jo_21.mp3";
+import Eva_22 from "./sounds/jo_22.mp3";
+import Eva_23 from "./sounds/jo_23.mp3";
+import Eva_24 from "./sounds/jo_24.mp3";
+import Eva_25 from "./sounds/jo_25.mp3";
+import Eva_26 from "./sounds/jo_26.mp3";
+import Eva_27 from "./sounds/jo_27.mp3";
+import Eva_28 from "./sounds/jo_28.mp3";
+import Eva_29 from "./sounds/jo_29.mp3";
+import Eva_30 from "./sounds/jo_30.mp3";
+import Eva_31 from "./sounds/jo_31.mp3";
+import Eva_32 from "./sounds/jo_32.mp3";
+import Eva_33 from "./sounds/jo_33.mp3";
+import Eva_34 from "./sounds/jo_34.mp3";
+import Eva_35 from "./sounds/jo_35.mp3";
+import Eva_36 from "./sounds/jo_36.mp3";
+import Eva_37 from "./sounds/jo_37.mp3";
+import Eva_38 from "./sounds/jo_38.mp3";
+import Eva_39 from "./sounds/jo_39.mp3";
 
 //Import react hooks
 import React, {
@@ -115,10 +111,6 @@ function Evangelion() {
       Eva_37,
       Eva_38,
       Eva_39,
-      Eva_40,
-      Eva_41,
-      Eva_42,
-      Eva_43,
     ];
   }, []);
 
@@ -126,15 +118,6 @@ function Evangelion() {
   async function handleInput() {
     try {
       let response = await axios.get("http://localhost:8010/inputButt");
-      setInput(response.data);
-    } catch (error) {
-      console.log("Error: " + error);
-    }
-  }
-
-  async function handleInputRefresh() {
-    try {
-      let response = await axios.get("http://localhost:8010/inputButt/refresh");
       setInput(response.data);
     } catch (error) {
       console.log("Error: " + error);
@@ -159,7 +142,7 @@ function Evangelion() {
       const getLyrics = async () => {
         try {
           await axios
-            .get("http://localhost:8010/evangelion")
+            .get("http://localhost:8010/jojopart2")
             .then((response) => {
               setLyrics(response.data);
               setLyricFuture(response.data);
@@ -186,7 +169,6 @@ function Evangelion() {
   }
 
   const nextLyric = useCallback(() => {
-    handleInputRefresh();
     var audio = new Audio(sounds[lyricIndex]);
 
     if (start) {
@@ -206,7 +188,6 @@ function Evangelion() {
 
   const previousLyric = useCallback(() => {
     if (lyricIndex > 1) {
-      handleInputRefresh();
       var audio = new Audio(sounds[lyricIndex]);
 
       if (lyricIndex < lyrics.length - 1) {
@@ -229,7 +210,15 @@ function Evangelion() {
     setInput([]);
 
     //Reset input from Database
-    handleInputRefresh();
+    try {
+      await axios
+        .get("http://localhost:8010/inputButt/refresh")
+        .then((response) => {
+          setInput(response.data);
+        });
+    } catch (error) {
+      console.log("Error: " + error);
+    }
   }
 
   //Function to compare input from Wemos with direction from lyrics
@@ -275,9 +264,9 @@ function Evangelion() {
 
           {/*Title song*/}
           <div className="text-wrapper">
-            <h3>A Cruel Angel's Thesis - Yoko Takahashi</h3>
-            <h3>A Cruel Angel's Thesis - Yoko Takahashi</h3>
-            <h3>A Cruel Angel's Thesis - Yoko Takahashi</h3>
+            <h3>Bloody Stream - Coda</h3>
+            <h3>Bloody Stream - Coda</h3>
+            <h3>Bloody Stream - Coda</h3>
           </div>
 
           {/*Full song control*/}

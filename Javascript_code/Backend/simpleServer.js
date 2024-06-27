@@ -77,6 +77,14 @@ APP.get("/evangelion", (req, res) => {
   });
 });
 
+APP.get("/jojopart2", (req,res) => {
+  var sql = "SELECT * FROM Jojopart2";
+  con.query(sql, function (err, result) {
+    if (err) throw err;
+    res.send(result);
+  });
+})
+
 
 httpServer.listen(PORT, () => {
   console.log(`Server is listening on http://localhost:${PORT}`);
