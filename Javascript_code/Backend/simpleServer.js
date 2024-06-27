@@ -60,6 +60,15 @@ APP.post("/inputButt", (req, res) => {
   });
 });
 
+APP.get("/inputButt/refresh", (req, res) => {
+  let input = ""
+  var sql = "UPDATE inputButt SET input = ?, atTime = CURTIME() WHERE id = 1";
+  con.query(sql, [input], (err, response) => {
+    if (err) throw err;
+    res.json({ message: "Refresh input success!" });
+  });
+});
+
 APP.get("/evangelion", (req, res) => {
   var sql = "SELECT * FROM Evangelion";
   con.query(sql, function (err, result) {
@@ -67,6 +76,7 @@ APP.get("/evangelion", (req, res) => {
     res.send(result);
   });
 });
+
 
 httpServer.listen(PORT, () => {
   console.log(`Server is listening on http://localhost:${PORT}`);

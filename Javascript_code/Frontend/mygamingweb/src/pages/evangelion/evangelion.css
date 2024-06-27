@@ -5,18 +5,14 @@
   background-position: center;
   background-attachment: fixed;
   height: 100vh;
+
+  background-color: black;
 }
 
 #evangelion-container {
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
   width: 100%;
   height: 100%;
   padding: 20px;
-
-  /* background-color: rgba(0, 0, 0, 0.5); */
 
   color: white;
   text-align: center;
@@ -30,26 +26,7 @@
     "songs player background-image"
     "songs player background-image";
 
-  padding: 20px;
-}
-
-h1 {
-  color: white;
-  text-align: center;
-}
-
-span > h2 {
-  color: white;
-  text-align: center;
-}
-span > p {
-  color: white;
-  text-align: center;
-}
-
-#evangelion-container > h2 {
-  color: white;
-  text-align: center;
+  padding: 10px;
 }
 
 .songs {
@@ -64,28 +41,105 @@ span > p {
   grid-area: background-image;
 }
 
+/*Logo*/
+.logo-evangelion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-evangelion img {
+  width: 100%;
+  height: 150px;
+}
+
+/*Button layout*/
 #button-layout {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  margin: 10px 0 10px 0;
+  height: 50px;
+  padding: 10px;
+
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 15px;
 
   > button {
-    width: 100px;
     height: 30px;
+    border-radius: 10px;
+    transition: 0.1s;
+    border: 1px solid white;
+  }
+
+  > button:hover {
+    background-color: grey;
+    color: whitesmoke;
+    border: 1px solid grey;
   }
 }
 
+#start-button {
+  width: 100px;
+}
+
+#start-button:hover {
+  background-color: rgb(43, 171, 43) !important;
+  color: white;
+  border: 1px solid rgb(43, 171, 43) !important;
+}
+
+#reset-button {
+  width: 100px;
+}
+
+#reset-button:hover {
+  background-color: rgb(252, 50, 50) !important;
+  color: white;
+  border: 1px solid rgb(252, 50, 50) !important;
+}
+
 #nextlyric-button {
-  margin-left: 50px;
+  width: 50px;
+  margin-right: 50px;
+  background-color: rgba(255, 255, 255, 0);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#nextlyric-button:hover {
+  border: 1px solid white !important;
+}
+
+#nextlyric-button svg {
+  width: 20px;
+  fill: white;
 }
 
 #prevlyric-button {
-  margin-right: 50px;
+  width: 50px;
+  margin-left: 50px;
+  background-color: rgba(255, 255, 255, 0);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+#prevlyric-button:hover {
+  border: 1px solid white !important;
+}
+
+#prevlyric-button svg {
+  width: 20px;
+  fill: white;
+}
+/*==============================*/
+
+/*Background right hand*/
 .background {
   display: flex;
   justify-content: flex-end;
@@ -121,58 +175,45 @@ span > p {
   object-fit: cover;
 }
 
+#pic1 {
+  filter: grayscale(0);
+  transition: 0.1s;
+}
+
+#pic1:hover {
+  filter: grayscale(100%);
+  transition: 0.1s;
+}
+
+#pic2 {
+  filter: grayscale(0);
+  transition: 0.1s;
+}
+
+#pic2:hover {
+  filter: grayscale(100%);
+}
+
+#pic3 {
+  filter: grayscale(0);
+  transition: 0.1s;
+}
+
+#pic3:hover {
+  filter: grayscale(100%);
+}
+/*==============================*/
+
+/*Player middle container*/
 .player {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  gap: 10px;
 }
 
-/* .slider {
-  width: 65%;
-  border: 1px solid red;
-  height: var(--height);
-  overflow: hidden;
-  mask-image: linear-gradient(to right, transparent, #000 10% 90%, transparent);
-
-  white-space: nowrap;
-}
-
-.slider:hover .list .title {
-  animation-play-state: paused;
-}
-
-.slider .list {
-  display: flex;
-  width: 100%;
-  min-width: calc(var(--width) * var(--quantity))!important;
-  position: relative;
-}
-
-.slider .list .title {
-  width: var(--width);
-  height: var(--height);
-  position: absolute;
-  left: 100%;
-  animation: autoRun 5s linear infinite;
-  animation-delay: calc((5s / var(--quantity)) * (var(--position) - 1));
-}
-
-.slider .list .title h3 {
-  display: inline;
-  width: 100%;
-  padding-right: 10px;
-}
-
-@keyframes autoRun {
-  from {
-    left: 100%;
-  }
-  to {
-    left: calc(var(--width) * -1);
-  }
-} */
-
+/*Infinite slider*/
 .text-wrapper {
   display: flex;
   justify-content: flex-start;
@@ -199,5 +240,182 @@ span > p {
   }
   100% {
     transform: translateX(-100%);
+  }
+}
+/*==============================*/
+
+/*Start display*/
+#start-display {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 300px;
+  height: 50px;
+  background-color: #000;
+
+  mask-image: linear-gradient(to right, transparent, #000 10% 90%, transparent);
+}
+
+#start-display h2 {
+  font-size: 30px;
+  white-space: nowrap;
+  padding: 0.6rem;
+  animation: autoBlink 1000ms linear infinite;
+}
+
+#start-display:hover h2 {
+  animation: none;
+  opacity: 1;
+}
+
+@keyframes autoBlink {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+/*==============================*/
+
+/*Input display*/
+.input-display {
+  display: grid;
+  grid-template-columns: 0.4fr 1fr;
+  justify-content: center;
+  align-items: start;
+  width: 600px;
+  gap: 10px;
+  color: white;
+}
+
+#input-wemos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: rgb(255, 255, 255);
+
+  border-radius: 10px;
+  border: 2px solid white;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+#input-lyric {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 10px;
+  border: 2px solid white;
+  background-color: rgba(0, 0, 0, 0.75);
+
+  > h2 {
+    font-size: 50px;
+  }
+
+  > p {
+    font-size: 30px;
+  }
+}
+/*==============================*/
+
+/*Lyric word display*/
+.lyric-display {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 10px;
+
+  color: black;
+}
+
+#lyric-word-display {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  width: 150px;
+  height: 35px;
+  background-color: #ffffff;
+
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #ffffff 10% 90%,
+    transparent
+  );
+}
+
+#lyric-word-display h2 {
+  margin: 0;
+  font-size: 25px;
+  white-space: nowrap;
+  animation: autoBlink 1000ms linear infinite;
+}
+
+#lyric-word-display:hover h2 {
+  animation: none;
+  opacity: 1;
+}
+/*==============================*/
+
+/*Lyric of the song display*/
+#lyric-of-the-song {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 7px;
+  padding: 10px;
+
+  color: rgb(255, 255, 255);
+
+  width: 450px;
+  height: 60px;
+
+  background-color: rgba(0, 0, 0, 0.75);
+  mask-image: linear-gradient(to right, transparent, #000 10% 90%, transparent);
+
+  > p {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 300;
+    opacity: 1;
+  }
+}
+/*==============================*/
+
+/*Lyric future*/
+#lyric-future-of-the-song {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 7px;
+  padding: 10px;
+  color: rgb(0, 0, 0);
+
+  width: 250px;
+  height: 25px;
+
+  background-color: rgba(255, 255, 255, 0.75);
+  mask-image: linear-gradient(to right, transparent, #000 10% 90%, transparent);
+
+  > p {
+    margin: 0;
+    font-weight: 200;
   }
 }

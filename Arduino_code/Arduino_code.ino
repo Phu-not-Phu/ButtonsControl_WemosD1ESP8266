@@ -78,14 +78,6 @@ void setup() {
   Serial.println(WiFi.localIP());
 
   server.on("/", handleOnConnect);
-  // server.on("/goleft", pressButtonLeft);
-  // server.on("/goup", pressButtonUp);
-  // server.on("/godown", pressButtonDown);
-  // server.on("/goright", pressButtonRight);
-
-  // pinMode(buttonLeft, OUTPUT);
-  // pinMode(buttonUp, OUTPUT);
-  // pinMode(buttonDown, OUTPUT);
 
   server.enableCORS(true);
   server.begin();

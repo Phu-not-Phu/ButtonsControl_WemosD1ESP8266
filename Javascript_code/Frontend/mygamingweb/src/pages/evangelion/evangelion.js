@@ -5,6 +5,7 @@ import music from "./music/Neon Genesis Evangelion.mp3";
 import Pic_1 from "./assets/Pic_1.jpg";
 import Pic_3 from "./assets/Pic_3.jpg";
 import Pic_5 from "./assets/Pic_5.jpg";
+import logo from "./assets/evangelion-logo.png";
 
 //Import sounds
 import Eva_1 from "./sounds/Eva_1.mp3";
@@ -64,8 +65,10 @@ import axios from "axios";
 function Evangelion() {
   const [input, setInput] = useState([]);
   const [lyrics, setLyrics] = useState([]);
+  const [lyricFuture, setLyricFuture] = useState([]);
   const [lyricIndex, setLyricIndex] = useState(0);
   const [start, setStart] = useState(false);
+  const [nextLyricIndex, setNextLyricIndex] = useState(1);
 
   const getLyricRef = useRef(false);
 
@@ -150,6 +153,7 @@ function Evangelion() {
             .get("http://localhost:8010/evangelion")
             .then((response) => {
               setLyrics(response.data);
+              setLyricFuture(response.data);
               console.log(response.data);
             });
         } catch (error) {
@@ -178,25 +182,51 @@ function Evangelion() {
     if (start) {
       if (lyricIndex < lyrics.length - 1) {
         setLyricIndex(lyricIndex + 1);
+
+        if (lyricIndex < lyrics.length - 2) {
+          setNextLyricIndex(nextLyricIndex + 1);
+        } else {
+          setNextLyricIndex(lyricIndex + 1);
+        }
         audio = new Audio(sounds[lyricIndex + 1]);
         audio.play();
       }
     }
-  }, [lyricIndex, lyrics, sounds, start]);
+  }, [lyricIndex, lyrics, sounds, start, nextLyricIndex]);
 
   const previousLyric = useCallback(() => {
     if (lyricIndex > 1) {
       var audio = new Audio(sounds[lyricIndex]);
+
+      if (lyricIndex < lyrics.length - 1) {
+        setNextLyricIndex(nextLyricIndex - 1);
+      } else {
+        setNextLyricIndex(lyricIndex);
+      }
+      
       setLyricIndex(lyricIndex - 1);
+
       audio = new Audio(sounds[lyricIndex - 1]);
       audio.play();
     }
-  }, [lyricIndex, sounds]);
+  }, [lyricIndex, sounds, nextLyricIndex, lyrics]);
 
-  function resetLyric() {
+  async function resetLyric() {
     setLyricIndex(0);
+    setNextLyricIndex(1);
     setStart(false);
     setInput([]);
+
+    //Reset input from Database
+    try {
+      await axios
+        .get("http://localhost:8010/inputButt/refresh")
+        .then((response) => {
+          setInput(response.data);
+        });
+    } catch (error) {
+      console.log("Error: " + error);
+    }
   }
 
   //Function to compare input from Wemos with direction from lyrics
@@ -210,7 +240,6 @@ function Evangelion() {
 
   //Function to change background images
   function changeBackground1() {
-    // document.querySelector("background-image").style.background = "url(Pic_1)";
     document.getElementsByClassName(
       "background-image"
     )[0].style.backgroundImage = `url(${Pic_1})`;
@@ -233,6 +262,10 @@ function Evangelion() {
       <div id="evangelion-container">
         <div className="songs"></div>
         <div className="player">
+          {/*Logo*/}
+          <div className="logo-evangelion">
+            <img src={logo} alt="" />
+          </div>
 
           {/*Title song*/}
           <div className="text-wrapper">
@@ -241,11 +274,6 @@ function Evangelion() {
             <h3>A Cruel Angel's Thesis - Yoko Takahashi</h3>
           </div>
 
-          <span>
-            <h2>Input from Wemos:</h2>
-            {input.length > 0 ? <p>{input}</p> : <p>Loading...</p>}
-          </span>
-
           {/*Full song control*/}
           <audio controls>
             <source src={music} type="audio/mpeg" />
@@ -253,54 +281,94 @@ function Evangelion() {
 
           {/*Lyric control*/}
           <div id="button-layout">
-            <button onClick={startLyric} id="start-button">
-              Start
-            </button>
-            <button onClick={nextLyric} id="nextlyric-button">
-              Next
-            </button>
-            <button onClick={previousLyric} id="prevlyric-button">
-              Previous
-            </button>
             <button onClick={resetLyric} id="reset-button">
               Reset
             </button>
+            <button onClick={previousLyric} id="prevlyric-button">
+              <svg
+                viewBox="0 0 32 32"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="black"
+              >
+                <path d="m27 28a1 1 0 0 1 -.5-.13l-19-11a1 1 0 0 1 0-1.74l19-11a1 1 0 0 1 1 0 1 1 0 0 1 .5.87v22a1 1 0 0 1 -1 1zm-17-12 16 9.27v-18.54z" />
+                <path d="m2 4h2v24h-2z" />
+                <path d="m0 0h32v32h-32z" fill="none" />
+              </svg>
+            </button>
+            <button onClick={nextLyric} id="nextlyric-button">
+              <svg
+                viewBox="0 0 32 32"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="black"
+              >
+                <path d="m5 28a1 1 0 0 1 -1-1v-22a1 1 0 0 1 .5-.87 1 1 0 0 1 1 0l19 11a1 1 0 0 1 0 1.74l-19 11a1 1 0 0 1 -.5.13zm1-21.27v18.54l16-9.27z" />
+                <path d="m28 4h2v24h-2z" />
+                <path d="m0 0h32v32h-32z" fill="none" />
+              </svg>
+            </button>
+            <button onClick={startLyric} id="start-button">
+              Start
+            </button>
           </div>
 
-          {/*Lyric display*/}
-          <div>
-            {start ? (
-              <div>
-                <h2>Input from lyric: </h2>
-                {lyrics.length > 0 ? (
-                  <p>{lyrics[lyricIndex].direction}</p>
-                ) : (
-                  <p>Loading...</p>
-                )}
-                <h2>Lyrics:</h2>
-                {lyrics.length > 0 ? (
-                  <div>
-                    <p>{lyrics[lyricIndex].lyric}</p>
-                  </div>
-                ) : (
-                  <p>Loading...</p>
-                )}
+          {/*Song contents*/}
+          <div className="lyric-container">
+            {!start ? (
+              <div id="start-display">
+                <h2>Press Start Button</h2>
               </div>
             ) : (
-              <h2>Press Start Button</h2>
+              <div className="display-content">
+                {/*Display input from Wemos and lyrics*/}
+                <div className="input-display">
+                  <div id="input-wemos">
+                    <h2>Wemos</h2>
+                    {input.length > 0 ? <p>{input}</p> : <p>Loading...</p>}
+                  </div>
+                  <div id="input-lyric">
+                    <h2>Direction</h2>
+                    {lyrics.length > 0 ? (
+                      <p>{lyrics[lyricIndex].direction}</p>
+                    ) : (
+                      <p>Loading...</p>
+                    )}
+                  </div>
+                </div>
+
+                {/*Display lyrics*/}
+                <div className="lyric-display">
+                  <div id="lyric-word-display">
+                    <h2>Lyrics:</h2>
+                  </div>
+                  {lyrics.length > 0 ? (
+                    <>
+                      <div id="lyric-of-the-song">
+                        <p>{lyrics[lyricIndex].lyric}</p>
+                      </div>
+                      <div id="lyric-future-of-the-song">
+                        <p>{lyricFuture[nextLyricIndex].lyric}</p>
+                      </div>
+                    </>
+                  ) : (
+                    <p>Loading...</p>
+                  )}
+                </div>
+              </div>
             )}
           </div>
         </div>
+
+        {/*Background images*/}
         <div className="background">
           <div className="back-frem">
             <div className="back-change" onClick={changeBackground1}>
-              <img src={Pic_1} alt=""></img>
+              <img src={Pic_1} alt="" id="pic1"></img>
             </div>
             <div className="back-change" onClick={changeBackground2}>
-              <img src={Pic_3} alt=""></img>
+              <img src={Pic_3} alt="" id="pic2"></img>
             </div>
             <div className="back-change" onClick={changeBackground3}>
-              <img src={Pic_5} alt=""></img>
+              <img src={Pic_5} alt="" id="pic3"></img>
             </div>
           </div>
         </div>

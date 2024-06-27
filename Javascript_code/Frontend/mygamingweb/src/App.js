@@ -10,7 +10,6 @@ function App() {
         <div className="big-container">
           <Routes>
             <Route path="/evangelion" element={<Evangelion />} />
-
             <Route path="*" element={<Evangelion />} />
           </Routes>
         </div>
